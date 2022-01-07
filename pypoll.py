@@ -13,17 +13,15 @@ file_to_load = os.path.join("Resources", "election_results.csv")
 # Create a variable to save analysis file to path
 file_to_save = os.path.join("analysis", "election_analysis.txt")
 
-# To do: read and analyze data here
 # Initialize total vote counter
 total_votes = 0
 
-# Identify andidate options
+# Identify candidate options
 candidate_options = []
-
 # Create dictionary to hold vote count for each candidate
 candidate_votes = {}
 
-# Create winning candidate and count tracker
+# Create winning candidate count and percentage trackers
 winning_candidate = ""
 winning_count = 0
 winning_percentage = 0
@@ -33,7 +31,7 @@ with open(file_to_load) as election_data:
     # Read the file object with the reader function
     file_reader = csv.reader(election_data)
 
-    # Print the header row to check if correctly skipped
+    # Read header row to skip
     headers = next(file_reader)
 
     # Print each row in the CSV file
@@ -51,6 +49,7 @@ with open(file_to_load) as election_data:
             # Begin tracking candidate's vote
             candidate_votes[candidate_name] = 0
         
+        # Add vote to candidate's count 
         candidate_votes[candidate_name] +=1
 
 # Open file to save results
@@ -77,7 +76,8 @@ with open(file_to_save, "w") as txt_file:
         # print(f'{candidate_name} received {vote_percentage:.1f}% of the vote')
 
         # Print each candidate's name, vote, and percentage
-        candidate_results = f'{candidate_name}: {vote_percentage:.1f}% ({votes:,})\n'
+        candidate_results = (
+            f'{candidate_name}: {vote_percentage:.1f}% ({votes:,})\n')
         # Print each candidate's results to terminal
         print(candidate_results)
         # Save candidate results to text_file
@@ -93,7 +93,7 @@ with open(file_to_save, "w") as txt_file:
             # update winning candidate
             winning_candidate = candidate_name
 
-    #summary
+    # summary
     winning_candidate_summary = (
         f"-------------------------\n"
         f"Winner: {winning_candidate}\n"
